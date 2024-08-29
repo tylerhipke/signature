@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <h5>Signature Creator 3000</h5>
+        </nav>
+    </header>
+    <main id="app">
+        <form>
+            <fieldset>
+                <legend>Personal Info</legend>
+
+                <input v-model="name" type="text" placeholder="name">
+                <input v-model="title" type="text" placeholder="title">
+            </fieldset>
+
+            <fieldset>
+                <legend>Contact Information</legend>
+
+                <input v-model="email" type="email" placeholder="email">
+                <input v-model="tel" type="tel" placeholder="phone">
+                <input hidden v-model="website" type="url" placeholder="website">
+            </fieldset>
+
+            <fieldset>
+                <legend>Custom Image</legend>
+
+                <input v-model="img" type="url" placeholder="image url" placeholder="https://example.com">            
+                <input v-model="imgWidth" type="text" placeholder="image-width">
+            </fieldset>
+
+            <fieldset class="hidden">
+                <legend>Disclaimer</legend>
+
+                <input v-model="disclaimer" type="text" placeholder="disclaimer">
+                <input v-model="disclaimerColor" type="color" placeholder="color" value="#ff0000">
+            </fieldset>
+
+            </form>
+        <div id="isolated">
+            <table style="table-layout:fixed" width="450" cellpadding="0" border="0">
+                <tbody>
+                    <tr> <!-- row 1 -->
+                        <td width="80" valign="top" align="left">
+                            <span style="margin:0px;padding:0px;display:block;">
+                                <img src="https://htmlsigs.s3.amazonaws.com/logos/files/001/321/413/landscape/Cym_Rebrand_Logo_SOURCE_NoTrademark_HTS_Icon-Green_Icon-Green.png" alt="Cymbiotika" width="80" height="80" border="0" style="display: block;">
+                            </span>
+                        </td>
+                        <td width="10" valign="top" align="left"> <!-- spacer -->
+                        </td>
+                        <td width="360" valign="top" align="left">
+                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 19x; color: rgb(33, 33, 33); display: block;"><strong>{{ name || 'Coco Elmi' }}</strong> | {{ title || 'Brand Ambassador' }}</span>
+                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
+                                <a :href="emailURL">{{ email || 'info@cymbiotika.com'}}</a>
+                            </span>
+                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
+                                <a :href="telURL">{{ tel || '(855) 983-8888' }}</a></span>
+                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
+                                <a href="www.cymbiotika.com">cymbiotika.com</a>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr> <!-- spacer -->
+                        <td width="450" height="10"></td>
+                    </tr>
+                    <tr v-if="img"> <!-- row 2 -->
+                        <td width="450" valign="top" align="left" colspan="3"></td>
+                    </tr>
+                    <tr v-if="img"> <!-- spacer -->
+                        <td width="450" height="10"></td>
+                    </tr>
+                    <tr> <!-- row 3 -->
+                        <td width="450" valign="top" align="left" colspan="3">
+                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 9px; line-height: 12px; color: rgb(204, 204, 204); display: block;">NOTICE: The contents of this email message and any attachments are intended solely for the addressee(s) and may contain confidential, proprietary or privileged information legally protected from disclosure. If you are not the intended recipient of this message, please immediately alert the sender by reply email and then delete this message and any attachments. Any unauthorized use, dissemination, copying, or storage of this message or its attachments is strictly prohibited. Nothing herein is intended to be a substitute for professional medical advice, diagnosis or treatment. Always seek the advice of your physician or other qualified healthcare provider with any questions you may have regarding a medical condition or treatment. Thank you.
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+<style>
+    fieldset legend,
+    fieldset input {display: block;}
+
+    main {display: grid;grid-template-columns: minmax(200px, auto) 1fr;gap: 1em;}
+
+    section {background-color: red;}
+
+    div#isolated * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div#isolated body {
+    font-family: sans-serif; /* or your preferred font-family */
+    line-height: 1.6;
+}
+
+div#isolated ul,
+div#isolated ol {
+    list-style: none;
+}
+
+div#isolated table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+div#isolated a {
+    text-decoration: none;
+    color: inherit;
+}
+
+div#isolated input,
+div#isolated textarea,
+div#isolated button {
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+div#isolated fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+div#isolated :focus {
+    outline: none;
+}
+</style>
+<script>
+    const { ref, computed } = Vue;
+
+Vue.createApp({
+  setup() {
+    // Reactive state
+    const name = ref('');
+    const title = ref('');
+    const email = ref('');
+    const tel = ref('');
+    const website = ref('');
+    const img = ref('');
+    const imgWidth = ref('');
+
+    // Computed property for the header text
+    //const headerText = computed(() => ` ${input1.value} | Input 2: ${input2.value}`);
+    const emailURL = computed(() => email.value ? `mailto:${email.value}` : 'mailto:info@cymbiotika.com');
+    const telURL = computed(() => tel.value ? `tel:${tel.value}` : 'tel:8559838888');
+    const webURL = computed(() => website.value ? `tel:${tel.value}` : 'tel:8559838888');
+
+    // Return the reactive state and computed property to the template
+    return {
+      name,
+      title,
+      email,
+      emailURL,
+      tel,
+      telURL,
+      website,
+      img,
+      imgWidth
+    };
+  }
+}).mount('#app');
+  </script>
+</html>
+
+
