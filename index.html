@@ -87,6 +87,9 @@
                 </tbody>
             </table>
         </div>
+
+        <input type=button value="Copy to Clipboard" @click="copytable">
+
     </main>
 
 </body>
@@ -148,38 +151,66 @@ div#isolated :focus {
 <script>
     const { ref, computed } = Vue;
 
-Vue.createApp({
-  setup() {
-    // Reactive state
-    const name = ref('');
-    const title = ref('');
-    const email = ref('');
-    const tel = ref('');
-    const website = ref('');
-    const img = ref('');
-    const imgWidth = ref('');
+    Vue.createApp({
+        setup() {
+            // Reactive state
+            const name = ref('');
+            const title = ref('');
+            const email = ref('');
+            const tel = ref('');
+            const website = ref('');
+            const img = ref('');
+            const imgWidth = ref('');
 
-    // Computed property for the header text
-    //const headerText = computed(() => ` ${input1.value} | Input 2: ${input2.value}`);
-    const emailURL = computed(() => email.value ? `mailto:${email.value}` : 'mailto:info@cymbiotika.com');
-    const telURL = computed(() => tel.value ? `tel:${tel.value}` : 'tel:8559838888');
-    const webURL = computed(() => website.value ? `tel:${tel.value}` : 'tel:8559838888');
+            // Computed property for the header text
+            //const headerText = computed(() => ` ${input1.value} | Input 2: ${input2.value}`);
+            const emailURL = computed(() => email.value ? `mailto:${email.value}` : 'mailto:info@cymbiotika.com');
+            const telURL = computed(() => tel.value ? `tel:${tel.value}` : 'tel:8559838888');
+            const webURL = computed(() => website.value ? `tel:${tel.value}` : 'tel:8559838888');
 
-    // Return the reactive state and computed property to the template
-    return {
-      name,
-      title,
-      email,
-      emailURL,
-      tel,
-      telURL,
-      website,
-      img,
-      imgWidth
-    };
-  }
-}).mount('#app');
+            function codddpytable() {
+                var urlField = document.getElementById('isolated');
+                console.log(urlField)
+                var range = document.createRange();
+                range.selectNode(urlField);
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                console.log('copied')
+            }
+
+
+            function copytable() {
+                window.getSelection().removeAllRanges();
+                let range = document.createRange();
+                range.selectNode(document.getElementById('isolated'));
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                alert('copied!!!')
+            }
+
+            // Return the reactive state and computed property to the template
+            return {
+                name,
+                title,
+                email,
+                emailURL,
+                tel,
+                telURL,
+                website,
+                img,
+                imgWidth,
+                copytable
+            };
+        }
+    }).mount('#app');
   </script>
+
+<script type="text/javascript">
+
+    
+    </script>
+    
 </html>
 
 
