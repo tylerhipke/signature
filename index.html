@@ -19,35 +19,36 @@
             <fieldset>
                 <legend>Personal Info</legend>
 
-                <input v-model="name" type="text" placeholder="name">
-                <input v-model="title" type="text" placeholder="title">
+                <input v-model="name" type="text" placeholder="Name">
+                <input v-model="title" type="text" placeholder="Title">
             </fieldset>
 
             <fieldset>
                 <legend>Contact Information</legend>
 
-                <input v-model="email" type="email" placeholder="email">
-                <input v-model="tel" type="tel" placeholder="phone">
-                <input hidden v-model="website" type="url" placeholder="website">
+                <input v-model="email" type="email" placeholder="Email">
+                <input v-model="tel" type="tel" placeholder="Phone">
             </fieldset>
 
             <fieldset>
-                <legend>Custom Image</legend>
+                <legend>Custom Image <small><em>optional</em></small></legend>
 
-                <input v-model="img" type="url" placeholder="image url" placeholder="https://example.com">            
-                <input v-model="imgWidth" type="text" placeholder="image-width">
+                <input v-model="img" type="url" placeholder="Image URL" placeholder="https://example.com">            
+                <input v-model="imgWidth" type="text" placeholder="Image Width">
             </fieldset>
 
-            <fieldset class="hidden">
+            <!-- <fieldset hidden>
                 <legend>Disclaimer</legend>
 
                 <input v-model="disclaimer" type="text" placeholder="disclaimer">
                 <input v-model="disclaimerColor" type="color" placeholder="color" value="#ff0000">
-            </fieldset>
+            </fieldset> -->
+
+            <input type=button value="Copy to Clipboard" @click="copyTable">
 
             </form>
         <div id="isolated">
-            <table style="table-layout:fixed" width="450" cellpadding="0" border="0">
+            <table width="450" cellpadding="0" border="0">
                 <tbody>
                     <tr> <!-- row 1 -->
                         <td width="80" valign="top" align="left">
@@ -65,7 +66,7 @@
                             <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
                                 <a :href="telURL">{{ tel || '(855) 983-8888' }}</a></span>
                             <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
-                                <a href="www.cymbiotika.com">cymbiotika.com</a>
+                                <a href="https://www.cymbiotika.com">cymbiotika.com</a>
                             </span>
                         </td>
                     </tr>
@@ -87,73 +88,128 @@
                 </tbody>
             </table>
         </div>
-
-        <input type=button value="Copy to Clipboard" @click="copytable">
-
     </main>
 
 </body>
 <style>
+    [hidden] {display: none;}
+
+    body {
+        background-color: #f5f5f5;
+    }
+    
+    main {
+        display: grid;
+        grid-template-columns: minmax(180px, min-content) 1fr;
+        gap: 14px;
+        padding: 40px 0 90px 60px;
+
+        background-color: #fff;
+    }
+
+    header {
+        font-weight: 700;
+        font-style: italic;
+        padding: 12px 32px;
+
+        background-color: #eee;
+    }
+
+    header h5 {
+        font-size: 1.25rem;
+    }
+    
+    form {
+        letter-spacing: -0.02em;
+        color: #333;
+    }
+
+    form > *:not(:first-child) {
+        margin-top: 20px;
+    }
+
+    fieldset legend {
+        font-size: .75rem;
+    }
+    fieldset input {
+        border: 1px solid black;
+        font-size: .75rem;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+    fieldset input:not(:last-of-type) {
+        margin-bottom: .25rem;
+    }
+ 
     fieldset legend,
     fieldset input {display: block;}
 
-    main {display: grid;grid-template-columns: minmax(200px, auto) 1fr;gap: 1em;}
+    input[type=button] {
+        font-weight: 700;
+        padding: 4px 8px;
+        border-radius: 99px;
+        display: block;
+        margin: auto;
+        background-color: black;
+        color: white;
+    }
 
-    section {background-color: red;}
+    /* isolated context for render preview */
+    div#isolated {
+        margin-top: 16px;
+        max-width: min-content;
+        overflow-x: scroll;
+    }
 
     div#isolated * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-div#isolated body {
-    font-family: sans-serif; /* or your preferred font-family */
-    line-height: 1.6;
-}
+    div#isolated ul,
+    div#isolated ol {
+        list-style: none;
+    }
 
-div#isolated ul,
-div#isolated ol {
-    list-style: none;
-}
+    div#isolated table {
+        table-layout: fixed;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-right: 60px;
+    }
 
-div#isolated table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+    div#isolated a {
+        text-decoration: none;
+        color: inherit;
+    }
 
-div#isolated a {
-    text-decoration: none;
-    color: inherit;
-}
+    div#isolated input,
+    div#isolated textarea,
+    div#isolated button {
+        border: none;
+        background: none;
+        font: inherit;
+        color: inherit;
+        padding: 0;
+        margin: 0;
+    }
 
-div#isolated input,
-div#isolated textarea,
-div#isolated button {
-    border: none;
-    background: none;
-    font: inherit;
-    color: inherit;
-    padding: 0;
-    margin: 0;
-}
+    div#isolated fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
 
-div#isolated fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-
-div#isolated :focus {
-    outline: none;
-}
+    div#isolated :focus {
+        outline: none;
+    }
 </style>
 <script>
     const { ref, computed } = Vue;
 
     Vue.createApp({
         setup() {
-            // Reactive state
             const name = ref('');
             const title = ref('');
             const email = ref('');
@@ -162,24 +218,11 @@ div#isolated :focus {
             const img = ref('');
             const imgWidth = ref('');
 
-            // Computed property for the header text
-            //const headerText = computed(() => ` ${input1.value} | Input 2: ${input2.value}`);
             const emailURL = computed(() => email.value ? `mailto:${email.value}` : 'mailto:info@cymbiotika.com');
             const telURL = computed(() => tel.value ? `tel:${tel.value}` : 'tel:8559838888');
-            const webURL = computed(() => website.value ? `tel:${tel.value}` : 'tel:8559838888');
+            const webURL = computed(() => website.value ? website.value : 'https://cymbiotika.com');
 
-            function codddpytable() {
-                var urlField = document.getElementById('isolated');
-                console.log(urlField)
-                var range = document.createRange();
-                range.selectNode(urlField);
-                window.getSelection().addRange(range);
-                document.execCommand('copy');
-                console.log('copied')
-            }
-
-
-            function copytable() {
+            function copyTable() {
                 window.getSelection().removeAllRanges();
                 let range = document.createRange();
                 range.selectNode(document.getElementById('isolated'));
@@ -200,17 +243,12 @@ div#isolated :focus {
                 website,
                 img,
                 imgWidth,
-                copytable
+                copyTable
             };
         }
     }).mount('#app');
   </script>
 
-<script type="text/javascript">
-
-    
-    </script>
-    
 </html>
 
 
