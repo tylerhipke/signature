@@ -15,7 +15,7 @@
         </nav>
     </header>
     <main id="app">
-        <form>
+        <form autocomplete="new-password">
             <fieldset>
                 <legend>Personal Info</legend>
 
@@ -48,47 +48,57 @@
 
             </form>
         <div id="isolated">
-            <table width="450" cellpadding="0" border="0">
-                <tbody>
-                    <tr> <!-- row 1 -->
-                        <td width="80" valign="top" align="left">
-                            <span style="margin:0px;padding:0px;display:block;">
-                                <img src="https://htmlsigs.s3.amazonaws.com/logos/files/001/321/413/landscape/Cym_Rebrand_Logo_SOURCE_NoTrademark_HTS_Icon-Green_Icon-Green.png" alt="Cymbiotika" width="80" height="80" border="0" style="display: block;">
-                            </span>
-                        </td>
-                        <td width="10" valign="top" align="left"> <!-- spacer -->
-                        </td>
-                        <td width="360" valign="top" align="left">
-                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 19x; color: rgb(33, 33, 33); display: block;"><strong>{{ name || 'Coco Elmi' }}</strong> | {{ title || 'Brand Ambassador' }}</span>
-                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
-                                <a :href="emailURL">{{ email || 'info@cymbiotika.com'}}</a>
-                            </span>
-                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
-                                <a :href="telURL">{{ tel || '(855) 983-8888' }}</a></span>
-                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; line-height: 14.4px; color: rgb(33, 33, 33); display: block;">
-                                <a href="https://www.cymbiotika.com">cymbiotika.com</a>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr> <!-- spacer -->
-                        <td width="450" height="10"></td>
-                    </tr>
-                    <tr v-if="img"> <!-- row 2 -->
-                        <td :width="imgWidthTable" valign="top" align="left" colspan="3">
-                            <img :src="img" :style="imgStyle">
-                        </td>
-                    </tr>
-                    <tr v-if="img"> <!-- spacer -->
-                        <td width="450" height="10"></td>
-                    </tr>
-                    <tr> <!-- row 3 -->
-                        <td width="450" valign="top" align="left" colspan="3">
-                            <span style="margin: 0px; padding: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 9px; line-height: 12px; color: rgb(204, 204, 204); display: block;">NOTICE: The contents of this email message and any attachments are intended solely for the addressee(s) and may contain confidential, proprietary or privileged information legally protected from disclosure. If you are not the intended recipient of this message, please immediately alert the sender by reply email and then delete this message and any attachments. Any unauthorized use, dissemination, copying, or storage of this message or its attachments is strictly prohibited. Nothing herein is intended to be a substitute for professional medical advice, diagnosis or treatment. Always seek the advice of your physician or other qualified healthcare provider with any questions you may have regarding a medical condition or treatment. Thank you.
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <table cellpadding="0" cellspacing="0" width="450" align="center" border="0">     
+                <tr>         
+                    <td>            
+                        <table cellpadding="0" cellspacing="0" width="80" align="left" border="0">                 
+                            <tr>                     
+                                <td><img class="cssTest" src="https://cdn.shopify.com/s/files/1/1824/8017/files/email_logo.png?v=1725053656" alt="Cymbiotika" width="80"></td>                 
+                            </tr>             
+                        </table>             
+                        <table cellpadding="0" cellspacing="0" width="10" align="left" border="0">                 
+                            <tr>                    
+                                <td>&nbsp;</td>                 
+                            </tr>             
+                        </table>             
+                        <table cellpadding="0" cellspacing="0" width="360" align="left" border="0">                 
+                            <tr>                     
+                                <td><span style="font-size: 16px;"><span><b>{{ name || 'Coco Elmi' }}</b></span> | {{ title || 'Brand Ambassador' }}</span></td>                 
+                            </tr>             
+                            <tr>                     
+                                <td><a :href="emailURL" style="font-size: 12px;">{{ email || 'info@cymbiotika.com'}}</a></td>                 
+                            </tr>             
+                            <tr>                     
+                                <td><a :href="telURL" style="font-size: 12px;">{{ tel || '(855) 983-8888' }}</a></span></td>                 
+                            </tr>             
+                            <tr>                     
+                                <td><a href="https://www.cymbiotika.com" style="font-size: 12px;">cymbiotika.com</a></td>                 
+                            </tr>             
+                            <tr>                     
+                                <td>                                
+                                    <a href="https://www.tiktok.com/@realcymbiotika">
+                                        <img src="https://cdn.shopify.com/s/files/1/1824/8017/files/email_tiktok.png?v=1658269836" alt="TikTok" width="16" style="margin-right: 4px;">
+                                    </a>
+                                    <a href="https://www.facebook.com/Cymbiotika">
+                                        <img src="https://cdn.shopify.com/s/files/1/1824/8017/files/email_facebook.png?v=1658269836" alt="Facebook" width="16" style="margin-right: 4px;">
+                                    </a>
+                                    <a href="https://www.instagram.com/cymbiotika/">
+                                        <img src="https://cdn.shopify.com/s/files/1/1824/8017/files/email_instagram.png?v=1658269836" alt="Instagram" width="16" style="margin-right: 4px;">
+                                    </a>
+                                    <a href="https://www.youtube.com/channel/UC1XFY5SHoYvJuqbFw7LpzxQ">
+                                        <img src="https://cdn.shopify.com/s/files/1/1824/8017/files/email_youtube.png?v=1725047610" alt="YouTube" width="16" style="margin-right: 4px;">
+                                    </a>
+                                </td>                 
+                            </tr>          
+                        </table>         
+                    </td>     
+                </tr> 
+            </table> 
+            <table cellpadding="0" cellspacing="0" width="450" align="center" border="0">     
+                <tr>         
+     
+                </tr> 
+            </table> 
         </div>
     </main>
 
@@ -205,12 +215,12 @@
         table-layout: fixed;
         border-collapse: collapse;
         border-spacing: 0;
-        margin-right: 60px;
     }
 
     div#isolated a {
         text-decoration: none;
         color: inherit;
+        display: inline-block;
     }
 
     div#isolated input,
@@ -256,12 +266,14 @@
             const imgStyle = computed(() => imgWidth.value ? `width: ${imgWidth.value}px` : '');
 
             function copyTable() {
-                window.getSelection().removeAllRanges();
-                let range = document.createRange();
-                range.selectNode(document.getElementById('isolated'));
-                window.getSelection().addRange(range);
-                document.execCommand('copy');
-                window.getSelection().removeAllRanges();
+                const element = document.querySelector('#isolated');
+                const htmlContent = element.outerHTML;
+
+                const blobInput = new Blob([htmlContent], { type: 'text/html' });
+                const clipboardItemInput = new ClipboardItem({ 'text/html': blobInput });
+
+                navigator.clipboard.write([clipboardItemInput]);
+                
                 btnText.value = 'Copied!';
                 btnDisabled.value = true;
                 setTimeout(()=>{
@@ -270,7 +282,6 @@
                 }, 800);
             };
 
-            // Return the reactive state and computed property to the template
             return {
                 name,
                 title,
