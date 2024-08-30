@@ -44,7 +44,7 @@
                 <input v-model="disclaimerColor" type="color" placeholder="color" value="#ff0000">
             </fieldset> -->
 
-            <input type=button value="Copy to Clipboard" @click="copyTable">
+            <button @click.prevent="copyTable" :disabled="btnDisabled"><span>{{ btnText || 'Copy to Clipboard' }}</span></button>
 
             </form>
         <div id="isolated">
@@ -102,7 +102,7 @@
     
     main {
         display: grid;
-        grid-template-columns: minmax(180px, min-content) 1fr;
+        grid-template-columns: minmax(220px, min-content) 1fr;
         gap: 14px;
         padding: 40px 0 90px 60px;
 
@@ -122,6 +122,7 @@
     }
     
     form {
+        padding: 20px;
         letter-spacing: -0.02em;
         color: #333;
     }
@@ -138,6 +139,7 @@
         font-size: .75rem;
         padding: 4px 8px;
         border-radius: 4px;
+        width: 100%;
     }
     fieldset input:not(:last-of-type) {
         margin-bottom: .25rem;
@@ -146,19 +148,44 @@
     fieldset legend,
     fieldset input {display: block;}
 
-    input[type=button] {
+    form button {
+        min-width: 166px;
         font-weight: 700;
-        padding: 4px 8px;
+        padding: 4px 16px;
         border-radius: 99px;
         display: block;
         margin: auto;
-        background-color: black;
-        color: white;
+        background-color: #000;
+        color: #fff;
+        transition-property: color, background-color;
+        transition-duration: 600ms;
+        transition-timing-function: ease;
+    }
+    
+    form button:hover ,
+    form button:hover:active {
+        transition-property: color, background-color;
+        background-color: #fff;
+        color: #000;
+    }
+    
+    form button:active {
+        transition-property: color, background-color;
+        box-shadow:     0 0 0 1px black, /* Outer border */
+        0 0 0 2px white; /* 1px gap */;
+    }
+    form button[disabled] {
+        cursor: not-allowed;
+    }
+
+    form button span {
+        position: relative;
+        top: -0.5px;
     }
 
     /* isolated context for render preview */
     div#isolated {
-        margin-top: 16px;
+        margin-top: 38px;
         max-width: min-content;
         overflow-x: scroll;
     }
@@ -219,6 +246,8 @@
             const website = ref('');
             const img = ref('');
             const imgWidth = ref('');
+            const btnText = ref('Copy to Clipboard')
+            const btnDisabled = ref(false)
 
             const emailURL = computed(() => email.value ? `mailto:${email.value}` : 'mailto:info@cymbiotika.com');
             const telURL = computed(() => tel.value ? `tel:${tel.value}` : 'tel:8559838888');
@@ -233,8 +262,13 @@
                 window.getSelection().addRange(range);
                 document.execCommand('copy');
                 window.getSelection().removeAllRanges();
-                alert('copied!!!')
-            }
+                btnText.value = 'Copied!';
+                btnDisabled.value = true;
+                setTimeout(()=>{
+                    btnText.value = 'Copy to Clipboard';
+                    btnDisabled.value = false;
+                }, 800);
+            };
 
             // Return the reactive state and computed property to the template
             return {
@@ -249,6 +283,8 @@
                 imgWidth,
                 imgWidthTable,
                 imgStyle,
+                btnText,
+                btnDisabled,
                 copyTable
             };
         }
