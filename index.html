@@ -34,7 +34,7 @@
                 <legend>Custom Image <small><em>optional</em></small></legend>
 
                 <input v-model="img" type="url" placeholder="Image URL" placeholder="https://example.com">            
-                <input v-model="imgWidth" type="text" placeholder="Image Width">
+                <input v-model="imgWidth" type="text" placeholder="Image Width (in px)">
             </fieldset>
 
             <!-- <fieldset hidden>
@@ -74,7 +74,9 @@
                         <td width="450" height="10"></td>
                     </tr>
                     <tr v-if="img"> <!-- row 2 -->
-                        <td width="450" valign="top" align="left" colspan="3"></td>
+                        <td :width="imgWidthTable" valign="top" align="left" colspan="3">
+                            <img :src="img" :style="imgStyle">
+                        </td>
                     </tr>
                     <tr v-if="img"> <!-- spacer -->
                         <td width="450" height="10"></td>
@@ -110,7 +112,7 @@
     header {
         font-weight: 700;
         font-style: italic;
-        padding: 12px 32px;
+        padding: 12px 60px;
 
         background-color: #eee;
     }
@@ -221,6 +223,8 @@
             const emailURL = computed(() => email.value ? `mailto:${email.value}` : 'mailto:info@cymbiotika.com');
             const telURL = computed(() => tel.value ? `tel:${tel.value}` : 'tel:8559838888');
             const webURL = computed(() => website.value ? website.value : 'https://cymbiotika.com');
+            const imgWidthTable = computed(() => imgWidth.value ? imgWidth.value : '450');
+            const imgStyle = computed(() => imgWidth.value ? `width: ${imgWidth.value}px` : '');
 
             function copyTable() {
                 window.getSelection().removeAllRanges();
@@ -243,6 +247,8 @@
                 website,
                 img,
                 imgWidth,
+                imgWidthTable,
+                imgStyle,
                 copyTable
             };
         }
